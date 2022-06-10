@@ -901,318 +901,6 @@ scp spark-env.sh node3:/export/server/spark/conf/
 ]]></content>
   </entry>
   <entry>
-    <title>Hello World</title>
-    <url>/2022/06/10/hello-world/</url>
-    <content><![CDATA[<p>Welcome to <a href="https://hexo.io/">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/writing.html">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/server.html">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/generating.html">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a href="https://hexo.io/docs/one-command-deployment.html">Deployment</a></p>
-]]></content>
-  </entry>
-  <entry>
-    <title>《使用SpringBoot搭建基础的Kafka流处理平台》</title>
-    <url>/2022/06/05/dxy/</url>
-    <content><![CDATA[<h1 id="《使用SpringBoot搭建基础的Kafka流处理平台》"><a href="#《使用SpringBoot搭建基础的Kafka流处理平台》" class="headerlink" title="《使用SpringBoot搭建基础的Kafka流处理平台》"></a>《使用SpringBoot搭建基础的Kafka流处理平台》</h1><hr>
-<p>title: 《使用SpringBoot搭建基础的Kafka流处理平台》<br>date: 2022-6-8 23:20:41<br>description: 使用SpringBoot搭建基础的Kafka流处理平台</p>
-<details>
-<summary>阅读全文</summary>
-
-<p>1．项目来源及背景<br>Kafka是目前主流的流处理平台，同时作为消息队列家族的一员，其高吞吐性作为很多场景下的主流选择。同时作为流处理平台，在大数据开发中，作为黏合剂串联各个系统。在本项目中，可以发布或订阅数据流处理系统，类似于消息队列数据流存储的平台，并且具备错误容忍当数据产生时就对数据进行处理。<br>2．需求分析<br>（1）通过Github同步kafka_rgzn_Training仓库到本地<br><a href="https://github.com/skykip/kafka_rgzn_Training/tree/main/kafka_rgzn_Training">https://github.com/skykip/kafka_rgzn_Training/tree/main/kafka_rgzn_Training</a><br>（2）调试并启动项目，理解项目中共计11个代码文件的相应内容。<br><img src="/../images/42.png" alt="42"></p>
-<p><img src="/../images/40.png" alt="40"></p>
-<p>代码一：ErrorCode.java ——错误代码<br>文件路径：src——java——common——ErrorCode</p>
-<blockquote>
-<blockquote>
-<blockquote>
-</blockquote>
-<p>   package common;<br>   &#x2F;**<br>   *@desc: 错误代码<br>   *&#x2F;<br>   public class ErrorCode {<br>   public final static int SUCCESS &#x3D; 200;<br>   public final static int EXCEPTION &#x3D; 500;<br>   }</p>
-</blockquote>
-</blockquote>
-<p>代码二：MessageEntity.java——消息实体类<br>文件路径：src——java——common——MessageEntity</p>
-<blockquote>
-<blockquote>
-<blockquote>
-</blockquote>
-<p>   package common;<br>   import lombok.EqualsAndHashCode;<br>   import lombok.Getter;<br>   import lombok.Setter;<br>   &#x2F;**<br>   *@desc: 消息实体<br>   *&#x2F;<br>   @Getter<br>   @Setter<br>   @EqualsAndHashCode<br>   public class MessageEntity {<br>      &#x2F;&#x2F;消息标题<br>      private String title;<br>      &#x2F;&#x2F;消息内容<br>      private String body;<br>      @Override<br>      public String toString() {<br>         return “MessageEntity{“ +<br>               “title&#x3D;’” + title + ‘&#39;‘ +<br>               “, body&#x3D;’” + body + ‘&#39;‘ +<br>               ‘}’;<br>      }<br>   }</p>
-</blockquote>
-</blockquote>
-<p>代码三：Response.java ——响应实体类<br>文件路径：src——java——common——Response</p>
-<blockquote>
-<blockquote>
-<blockquote>
-</blockquote>
-<p>   package common;<br>   import lombok.Getter;<br>   import lombok.Setter;<br>   &#x2F;**<br>      * @ClassName: Response<br>      * @Description: 响应实体<br>   **&#x2F;<br>   @Getter<br>   @Setter<br>   public class Response {<br>      &#x2F;&#x2F;响应码<br>      private int code;<br>      &#x2F;&#x2F;消息<br>      private String message;<br>      public Response(int code, String message){<br>         this.code &#x3D; code;<br>         this.message &#x3D; message;<br>      }<br>      @Override<br>      public String toString() {<br>         return “Response{“ +<br>               “code&#x3D;” + code +<br>               “, message&#x3D;’” + message + ‘&#39;‘ +<br>               ‘}’;<br>      }<br>   }</p>
-</blockquote>
-</blockquote>
-<p>代码四：KafkaConsumerConfig.java——kafka消费者配置<br>文件目录：src——java——config——KafkaConsumerConfig</p>
-<blockquote>
-<blockquote>
-<blockquote>
-</blockquote>
-<p>   package config;<br>   import com.bigdata19.kafka.common.MessageEntity;<br>   import common.MessageEntity;<br>   import org.apache.kafka.clients.consumer.ConsumerConfig;<br>   import org.apache.kafka.common.serialization.StringDeserializer;<br>   import org.springframework.beans.factory.annotation.Value;<br>   import org.springframework.context.annotation.Bean;<br>   import org.springframework.context.annotation.Configuration;<br>   import org.springframework.kafka.annotation.EnableKafka;<br>   import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;<br>   import org.springframework.kafka.config.KafkaListenerContainerFactory;<br>   import org.springframework.kafka.core.ConsumerFactory;<br>   import org.springframework.kafka.core.DefaultKafkaConsumerFactory;<br>   import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;<br>   import org.springframework.kafka.support.serializer.JsonDeserializer;<br>   import java.util.HashMap;<br>   import java.util.Map;<br>   &#x2F;**<br>      * @ClassName: KafkaConsumerConfig<br>      * @Description: kafka消费者配置<br>   &#x2F;<br>   @Configuration<br>   @EnableKafka<br>   public class KafkaConsumerConfig {<br>   &#x2F;&#x2F;服务地址<br>   @Value(“${kafka.consumer.servers}”)<br>   private String servers;<br>   &#x2F;&#x2F;是否自动提交<br>   @Value(“${kafka.consumer.enable.auto.commit}”)<br>   private boolean enableAutoCommit;<br>   &#x2F;&#x2F;session时间<br>   @Value(“${kafka.consumer.session.timeout}”)<br>   private String sessionTimeout;<br>   &#x2F;&#x2F;提交的间隔<br>   @Value(“${kafka.consumer.auto.commit.interval}”)<br>   private String autoCommitInterval;<br>   @Value(“${kafka.consumer.group.id}”)<br>   private String groupId;<br>   &#x2F;&#x2F;重置<br>   @Value(“${kafka.consumer.auto.offset.reset}”)<br>   private String autoOffsetReset;<br>   &#x2F;&#x2F;并发数<br>   @Value(“${kafka.consumer.concurrency}”)<br>     private int concurrency;<br>   @Bean<br>   public KafkaListenerContainerFactory&lt;ConcurrentMessageListenerContainer&lt;String, MessageEntity&gt;&gt; kafkaListenerContainerFactory(){<br>   ConcurrentKafkaListenerContainerFactory&lt;String, MessageEntity&gt; factory &#x3D; new ConcurrentKafkaListenerContainerFactory&lt;&gt;();<br>   factory.setConsumerFactory(consumerFactory());<br>     factory.setConcurrency(concurrency);<br>   factory.getContainerProperties().setPollTimeout(1500);<br>   return factory;<br>   }<br>   private ConsumerFactory&lt;String, MessageEntity&gt; consumerFactory(){<br>   return new DefaultKafkaConsumerFactory&lt;&gt;(<br>   consumerConfigs(),<br>   new StringDeserializer(),<br>   new JsonDeserializer&lt;&gt;(MessageEntity.class)<br>     );<br>   }<br>   &#x2F;<br>      * 封装配置<br>      * @return<br>   *&#x2F;<br>   private Map&lt;String, Object&gt; consumerConfigs(){<br>   Map&lt;String, Object&gt; propsMap &#x3D; new HashMap&lt;&gt;();<br>   propsMap.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, servers);<br>   propsMap.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, enableAutoCommit);<br>     propsMap.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, autoCommitInterval);<br>   propsMap.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, sessionTimeout);<br>   propsMap.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);<br>   propsMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);<br>   propsMap.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);<br>   propsMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, autoOffsetReset);<br>   return propsMap;<br>   }<br>     }<br>   ? 2022 GitHub, Inc.</p>
-</blockquote>
-</blockquote>
-<p>代码五：KafkaProducerConfig.java——kafka生产者配置<br>src——java——config——KafkaProducerConfig</p>
-<blockquote>
-<blockquote>
-<blockquote>
-</blockquote>
-<pre><code>  package config;
-  import com.bigdata19.kafka.common.MessageEntity;
-  import org.apache.kafka.clients.producer.ProducerConfig;
-  import org.apache.kafka.common.serialization.StringSerializer;
-  import org.springframework.beans.factory.annotation.Value;
-  import org.springframework.context.annotation.Bean;
-  import org.springframework.context.annotation.Configuration;
-  import org.springframework.kafka.annotation.EnableKafka;
-  import org.springframework.kafka.core.DefaultKafkaProducerFactory;
-  import org.springframework.kafka.core.KafkaTemplate;
-  import org.springframework.kafka.core.ProducerFactory;
-  import org.springframework.kafka.support.serializer.JsonSerializer;
-  import java.util.HashMap;
-  import java.util.Map;
-  /**
-     * @ClassName: KafkaProducerConfig
-     * @Description: kafka生产者配置
-  **/
-  @Configuration
-  @EnableKafka
-  public class KafkaProducerConfig &#123;
-    //服务地址
-  @Value(&quot;$&#123;kafka.producer.servers&#125;&quot;)
-  private String servers;
-  //重试次数
-  @Value(&quot;$&#123;kafka.producer.retries&#125;&quot;)
- private int retries;
-  //批处理大小
-  @Value(&quot;$&#123;kafka.producer.batch.size&#125;&quot;)
-  private int batchSize;
-  //将多少时间范围内的数据作为一个批次发送，减少交互次数
-  @Value(&quot;$&#123;kafka.producer.linger&#125;&quot;)
-  private int linger;
-  //缓存空间
-  @Value(&quot;$&#123;kafka.producer.buffer.memory&#125;&quot;)
-     private int bufferMemory;
-  /**
-  * 封装配置
-  * @return
-  */
-     public Map&lt;String, Object&gt; producerConfigs() &#123;
-     Map&lt;String, Object&gt; props = new HashMap&lt;&gt;();
-     props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, servers);
-    props.put(ProducerConfig.RETRIES_CONFIG, retries);
-     props.put(ProducerConfig.BATCH_SIZE_CONFIG, batchSize);
-     props.put(ProducerConfig.LINGER_MS_CONFIG, linger);
-     props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, bufferMemory);
-     props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-     props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
-     return props;
-  &#125;
-  public ProducerFactory&lt;String, MessageEntity&gt; producerFactory() &#123;
-     return new DefaultKafkaProducerFactory&lt;&gt;(producerConfigs(),
-           new StringSerializer(),
-           new JsonSerializer&lt;MessageEntity&gt;());
-  &#125;
-  @Bean
-  public KafkaTemplate&lt;String, MessageEntity&gt; kafkaTemplate() &#123;
-     return new KafkaTemplate&lt;&gt;(producerFactory());
-  &#125;
-  &#125;
-</code></pre>
-</blockquote>
-</blockquote>
-<p>代码六：SimpleConsumer.java——消息消费者<br>文件目录：src——java——consumer——SimpleConsumer</p>
-<blockquote>
-<blockquote>
-<blockquote>
-</blockquote>
-<p>   package consumer;<br>   import com.bigdata19.kafka.common.MessageEntity;<br>   import com.google.gson.Gson;<br>   import lombok.extern.slf4j.Slf4j;<br>   import org.springframework.kafka.annotation.KafkaListener;<br>   import org.springframework.stereotype.Component;<br>   &#x2F;**<br>    * @ClassName: SimpleConsumer<br>    * @Description: 消息消费者<br>    <strong>&#x2F;<br>   @Slf4j<br>   @Component<br>   public class SimpleConsumer {<br>      private final Gson gson &#x3D; new Gson();<br>      &#x2F;</strong><br>       * 消费者监听消息<br>       * @param message<br>       *&#x2F;<br>      @KafkaListener(topics &#x3D; “${kafka.topic.default}”, containerFactory &#x3D; “kafkaListenerContainerFactory”)<br>      public void receive(MessageEntity message){<br>         log.info(gson.toJson(message));<br>      }<br>   }</p>
-</blockquote>
-</blockquote>
-<p>代码七：ProduceController.java——控制层<br>文件目录：src——java——controller——ProduceController</p>
-<blockquote>
-<blockquote>
-<blockquote>
-<pre><code>package controller;
-</code></pre>
-<p>   import com.bigdata19.kafka.common.ErrorCode;<br>   import com.bigdata19.kafka.common.MessageEntity;<br>   import com.bigdata19.kafka.common.Response;<br>   import com.bigdata19.kafka.producer.SimpleProducer;<br>    import com.google.gson.Gson;<br>   import lombok.extern.slf4j.Slf4j;<br>   import org.springframework.beans.factory.annotation.Autowired;<br>   import org.springframework.beans.factory.annotation.Value;<br>   import org.springframework.web.bind.annotation.RequestBody;<br>   import org.springframework.web.bind.annotation.RequestMapping;<br>   import org.springframework.web.bind.annotation.RequestMethod;<br>   import org.springframework.web.bind.annotation.RestController;<br>   &#x2F;**<br>       * @ClassName: ProduceController<br>    * @Description: 控制层<br>    **&#x2F;<br>   @Slf4j<br>   @RestController<br>   @RequestMapping(“&#x2F;kafka”)<br>   public class ProduceController {<br>      @Autowired<br>      private SimpleProducer simpleProducer;<br>      @Value(“${kafka.topic.default}”)<br>      private String topic;<br>      private Gson gson &#x3D; new Gson();<br>      &#x2F;&#x2F;<a href="http://localhost:8080/kafka/index">http://localhost:8080/kafka/index</a><br>      @RequestMapping(value &#x3D; “&#x2F;index”, method &#x3D; RequestMethod.GET, produces &#x3D; {“application&#x2F;json”})<br>      public Response sendKafka(){<br>         return new Response(ErrorCode.SUCCESS, “OK”);<br>   }<br>         &#x2F;&#x2F;<a href="http://localhost:8080/kafka/send">http://localhost:8080/kafka/send</a><br>         @RequestMapping(value &#x3D; “&#x2F;send”, method &#x3D; RequestMethod.POST, produces &#x3D; {“application&#x2F;json”})<br>         public Response sendKafka(@RequestBody MessageEntity message){<br>         try{<br>            log.info(“kafka消息&#x3D; {}”, gson.toJson(message));<br>            simpleProducer.send(topic, “key”, message);<br>            log.info(“发送kafka消息成功”);<br>            return new Response(ErrorCode.SUCCESS, “发送kafka成功”);<br>         }catch (Exception e){<br>            log.error(“发送kafka失败”,e);<br>            return new Response(ErrorCode.EXCEPTION, “发送kafka失败”);<br>         }<br>      }<br>   }</p>
-</blockquote>
-</blockquote>
-</blockquote>
-<p>代码八：KafkaDemoApplication.java——项目启动入口类<br>文件目录：src——java——producer——KafkaDemoApplication</p>
-<blockquote>
-<blockquote>
-<blockquote>
-</blockquote>
-<pre><code>  package producer;
-</code></pre>
-<p>   import org.springframework.boot.SpringApplication;<br>   import org.springframework.boot.autoconfigure.EnableAutoConfiguration;<br>   import org.springframework.boot.autoconfigure.SpringBootApplication;<br>   @SpringBootApplication<br>      public class KafkaDemoApplication {<br>      public static void main(String[] args) {<br>         SpringApplication.run(KafkaDemoApplication.class, args);<br>      }<br>   }</p>
-</blockquote>
-</blockquote>
-<p>代码九：ProducerCallback.java——消息生产者发送消息的接口<br>文件目录src——java——producer——ProducerCallback</p>
-<blockquote>
-<blockquote>
-<blockquote>
-</blockquote>
-<pre><code>  package producer;
-</code></pre>
-<p>   import com.bigdata19.kafka.common.MessageEntity;<br>   import com.google.gson.Gson;<br>   import common.MessageEntity;<br>   import lombok.extern.slf4j.Slf4j;<br>   import org.apache.kafka.clients.producer.RecordMetadata;<br>   import org.springframework.kafka.support.SendResult;<br>   import org.springframework.util.concurrent.ListenableFutureCallback;<br>   &#x2F;**<br>    * @ClassName: ProducerCallback<br>    * @Description: 消息生产者发送消息接口<br>    <strong>&#x2F;<br>   @Slf4j<br>   public class ProducerCallback implements ListenableFutureCallback&lt;SendResult&lt;String, MessageEntity&gt;&gt;{<br>      &#x2F;&#x2F;消息发送时间<br>      private final long startTime;<br>      &#x2F;&#x2F;消息key<br>      private final String key;<br>      &#x2F;&#x2F;消息内容<br>      private final MessageEntity message;<br>      private final Gson gson &#x3D; new Gson();<br>      public ProducerCallback(long startTime, String key, MessageEntity message) {<br>         this.startTime &#x3D; startTime;<br>         this.key &#x3D; key;<br>         this.message &#x3D; message;<br>      }<br>      &#x2F;</strong><br>       * 消息发送失败<br>       * @param ex<br>       <em>&#x2F;<br>      @Override<br>      public void onFailure(Throwable ex) {<br>         ex.printStackTrace();<br>      }<br>      &#x2F;</em>*<br>       * 消息发送成功<br>       * @param result<br>       *&#x2F;<br>      @Override<br>      public void onSuccess(SendResult&lt;String, MessageEntity&gt; result) {<br>         if(result &#x3D;&#x3D; null){<br>            return;<br>         }<br>         long elapsedTime &#x3D; System.currentTimeMillis() - startTime;<br>         System.out.println(“time :” + elapsedTime);<br>         RecordMetadata metadata &#x3D; result.getRecordMetadata();<br>         if(metadata !&#x3D; null){<br>            StringBuilder record &#x3D; new StringBuilder();<br>            record.append(“message(“)<br>                  .append(“key &#x3D; “).append(key).append(“,”)<br>                  .append(“message &#x3D; “).append(gson.toJson(message)).append(“)”)<br>                  .append(“send to partition(“).append(metadata.partition()).append(“)”)<br>                  .append(“with offset(“).append(metadata.offset()).append(“)”)<br>                  .append(“in “).append(elapsedTime).append(“ ms”);<br>            log.info(record.toString());<br>         }<br>      }<br>   }</p>
-</blockquote>
-</blockquote>
-<p>代码十：SimpleProducer.java——消息生产者<br>文件目录src——java——producer——SimpleProducer</p>
-<blockquote>
-<blockquote>
-<blockquote>
-</blockquote>
-<pre><code>  package producer;
-</code></pre>
-<p>   import com.bigdata19.kafka.common.MessageEntity;<br>   import common.MessageEntity;<br>   import org.apache.kafka.clients.producer.ProducerRecord;<br>   import org.springframework.beans.factory.annotation.Autowired;<br>   import org.springframework.beans.factory.annotation.Qualifier;<br>   import org.springframework.kafka.core.KafkaTemplate;<br>   import org.springframework.kafka.support.SendResult;<br>   import org.springframework.stereotype.Component;<br>   import org.springframework.util.concurrent.ListenableFuture;<br>   &#x2F;**<br>    * @ClassName: SimpleProducer<br>    * @Description: 消息生产者发送消息<br>    <strong>&#x2F;<br>   @Component<br>   public class SimpleProducer {<br>      @Autowired<br>      @Qualifier(“kafkaTemplate”)<br>      private KafkaTemplate&lt;String, MessageEntity&gt; kafkaTemplate;<br>      public void send(String topic, MessageEntity message){<br>         kafkaTemplate.send(topic, message);<br>      }<br>      &#x2F;</strong><br>       * 发送消息<br>       * @param topic  消息主题<br>       * @param key   消息key<br>       * @param entity  消息体<br>       *&#x2F;<br>      public void send(String topic, String key, MessageEntity entity){<br>         ProducerRecord&lt;String, MessageEntity&gt; record &#x3D; new ProducerRecord&lt;&gt;(<br>               topic,<br>               key,<br>               entity<br>         );<br>            long startTime &#x3D; System.currentTimeMillis();<br>         ListenableFuture&lt;SendResult&lt;String, MessageEntity&gt;&gt; future &#x3D; kafkaTemplate.send(record);<br>         future.addCallback(new ProducerCallback(startTime, key, entity));<br>      }<br>   }</p>
-</blockquote>
-</blockquote>
-<p>运行结果：<br><img src="/../images/41.png" alt="41"></p>
-<p>项目结构<br>调试时，在KafkaDemoApplication文件内启动项目。使用postman等Http接口调试工具对项目进行测试。<br>A.测试时，使用get测试<a href="http://localhost:8080/kafka/index%E6%8E%A5%E5%8F%A3%E6%98%AF%E5%90%A6%E6%AD%A3%E5%B8%B8%E3%80%82%E5%8F%91%E9%80%81%E7%9B%B8%E5%BA%94%E7%9A%84json%E6%95%B0%E6%8D%AE%E3%80%82%E8%AF%B7%E6%88%AA%E5%9B%BEHttp%E6%8E%A5%E5%8F%A3%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7%E4%B8%AD%E5%93%8D%E5%BA%94%E4%BD%93%E7%9A%84%E5%85%B7%E4%BD%93%E5%86%85%E5%AE%B9%E5%92%8C%E9%A1%B9%E7%9B%AE%E8%BF%90%E8%A1%8C%E7%95%8C%E9%9D%A2%E7%9A%84%E6%98%BE%E7%A4%BA%E5%86%85%E5%AE%B9%E3%80%82%E5%A6%82%E4%B8%8B%E5%9B%BE%E6%89%80%E7%A4%BA%EF%BC%9A">http://localhost:8080/kafka/index接口是否正常。发送相应的json数据。请截图Http接口调试工具中响应体的具体内容和项目运行界面的显示内容。如下图所示：</a><br><img src="/../images/43.png" alt="43"></p>
-<p>图2 get响应体的具体内容<br>B.测试时，使用post方式向<a href="http://localhost:8080/kafka/send%E6%8E%A5%E5%8F%A3%E5%8F%91%E9%80%81json%E6%95%B0%E6%8D%AE%E3%80%82">http://localhost:8080/kafka/send接口发送json数据。</a><br>样例数据如下（请在样例数据中改为自己的姓名和学号）：<br>{“title”:”bigdata19-kafka”,”body”:”2022-06-05，杜新宇（194800206）的kafka实训”}<br>请截图Http接口调试工具中响应体的具体内容和项目运行界面的显示内容。如下图所示：<br><img src="/../images/44.jpg" alt="44"><br><img src="/../images/45.jpg" alt="45"></p>
-<p>**</p>
-</details>
-
-<hr>
-]]></content>
-  </entry>
-  <entry>
-    <title>Hexo，从此开始...</title>
-    <url>/2020/01/01/helloworld/</url>
-    <content><![CDATA[<p><a href="https://hexo.io/">Hexo</a>是一个快速、简洁且高效的博客框架，支持 <code>Markdown</code> 的绝大部分功能；具有超快生成速度，让数百个 <code>MarkDown</code> 源文件在几秒内快速渲染成全站 <code>HTML</code> 页面；还拥有各式各样的插件支持功能扩展。</p>
-<p>但是就像很多教程里面写的那样，搭建 Hexo 本地环境，需要安装 <code>Node.js</code>、<code>Git</code> 以及使用 <code>npm</code> 进行安装和配置。这对于毫无经验的新手来说，是一个很大的挑战。同时，由于这些环境的存在，导致如果需要更换计算机的时候，重新安装配置一个新的Hexo环境，又得花费一些功夫。</p>
-<p>所以呢，我们整合了一个 Hexo 便携版，来简化本地环境的部署，这就是我们的GoodHexo。</p>
-<p><img src="/../images/GoodHexo.png"></p>
-<ul>
-<li>当你重装系统后，只要GoodHexo目录还在，直接接着用即可；</li>
-<li>当你想换个电脑，只需要将GoodHexo目录移到新电脑上即可。甚至，你可以将这个文件夹装到U盘里，走哪插哪就行。</li>
-</ul>
-<h1 id="软件介绍"><a href="#软件介绍" class="headerlink" title="软件介绍"></a>软件介绍</h1><p>那么所谓的便携版到底是什么？便携版就是将 Hexo 本地环境所需要的各种依赖环境的整合到一起，做成不需要安装的版本。</p>
-<p>本便携版当前版本所包含的软件如下：</p>
-<table>
-<thead>
-<tr>
-<th>程序</th>
-<th>版本</th>
-<th>更新时间</th>
-</tr>
-</thead>
-<tbody><tr>
-<td>Git</td>
-<td>2.7.4</td>
-<td>2020-7-18</td>
-</tr>
-<tr>
-<td>Nodejs</td>
-<td>12.16.2</td>
-<td>2020-7-18</td>
-</tr>
-<tr>
-<td>Npm</td>
-<td>6.14.4</td>
-<td>2020-7-18</td>
-</tr>
-<tr>
-<td>Hexo</td>
-<td>5.2.0</td>
-<td>2020-8-27</td>
-</tr>
-<tr>
-<td>Hexo-cli</td>
-<td>4.2.0</td>
-<td>2020-8-27</td>
-</tr>
-</tbody></table>
-<blockquote>
-<p>适用平台：<strong>Microsoft Windows</strong><br>关键词： <strong>GoodHexo</strong>，<strong>Hexo绿色版</strong>，<strong>Hexo便携版</strong>，<strong>Hexo配置</strong>，<strong>Hexo</strong>，<strong>U盘携带</strong>，<strong>GitHub Hexo</strong></p>
-</blockquote>
-<p>为了便携的需要，不能配置固定的环境变量，所以除此之外还有相应的批处理脚本，下文将详细介绍。</p>
-<h1 id="从零开始，一分钟使用-GoodHexo-写作环境"><a href="#从零开始，一分钟使用-GoodHexo-写作环境" class="headerlink" title="从零开始，一分钟使用 GoodHexo 写作环境"></a>从零开始，一分钟使用 GoodHexo 写作环境</h1><p>说了这么多，我们这就开始教你如何在1分钟内，从零开始使用 GoodHexo 写作环境！</p>
-<h2 id="认识文件目录"><a href="#认识文件目录" class="headerlink" title="认识文件目录"></a>认识文件目录</h2><p>该订制的GoodHexo便携包基本上已经包含了Hexo博客所需的所有依赖，<strong>添加新主题新功能如果缺依赖请按照主题文档去安装</strong>更新即可。<br>上面的<strong>压缩包下载解压</strong>后，其目录结构如下：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">GOODHEXO #便携包根目录</span><br><span class="line">|   1.新建文章.bat  #要新建文章运行此批处理，填文件名建议别用中文</span><br><span class="line">|   2.本地测试.bat  #写完文章可以启动本地服务端测试预览效果</span><br><span class="line">|   3.渲染并部署.bat #确定文章写完了，那么就运行此批处理发布</span><br><span class="line">|   启动命令行.bat #给有经验的人用，直达bash界面</span><br><span class="line">|   清理旧文件后部署.bat  #部署也没报错，但博客就是没更新或者其他异常，那么用这个来部署试试</span><br><span class="line">|   </span><br><span class="line">+---hexo    #hexo程序工作目录</span><br><span class="line">|   |   .gitignore  #指定Git提交时忽略的文件规则，一般也不要动</span><br><span class="line">|   |   db.json  #程序自动生成的，不要动</span><br><span class="line">|   |   package.json  #不要动</span><br><span class="line">|   |   _config.yml  #hexo的主配置文件，定义标题，作者，导航菜单等</span><br><span class="line">|   |   </span><br><span class="line">|   +---node_modules  #hexo的依赖环境，不要动</span><br><span class="line">|   +---scaffolds  #文章/页面/草稿模板，不会就不要动</span><br><span class="line">|   +---source  #网站根目录</span><br><span class="line">|   |   README.md #本便携包示例文档</span><br><span class="line">|   |   \---images  #图片资源，网站路径为：/images</span><br><span class="line">|   |   |   GoodHexo.png  #图片引用地址为：/images/GoodHexo.png，也可以：../images/GoodHexo.png</span><br><span class="line">|   |   \---_posts  #你所有的文章都存在这个目录底下，通过批处理新建文章会自动建到这个目录下</span><br><span class="line">|   |   |   hello-world.md  #示例文章源文件，该MarkDown文件会被hexo渲染成HTML页发布</span><br><span class="line">|   |   </span><br><span class="line">|   +---themes  #主题存放目录</span><br><span class="line">|   |   \---landscape #默认主题</span><br><span class="line">|   |   </span><br><span class="line">|       </span><br><span class="line">\---support #便携程序包，包含nodejs和Git环境，不要动</span><br></pre></td></tr></table></figure>
-
-<h2 id="开始使用"><a href="#开始使用" class="headerlink" title="开始使用"></a>开始使用</h2><h3 id="详细个性化设置"><a href="#详细个性化设置" class="headerlink" title="详细个性化设置"></a>详细个性化设置</h3><p>拿到这个便携包，一些基础配置和基本的主题设置等院长都已经给你做好了，只需要自行对博客网站进行个性化详细设置即可。</p>
-<p>个性化设置主要有两个地方：</p>
-<ol>
-<li>Hexo目录下的 <code>_config.yml</code> ，详见相应的参数注释，按要求填写，不想写就默认</li>
-<li>主题目录下的 <code>_config.yml</code> ，主题不同设置项不同，所以请参考主题对应的文档进行修改设置</li>
-</ol>
-<p>依次打开就能看个大概了，根据自己的需要及主题帮助完成自己要的个性化设置。更深入的个性化基本上需要在主题上做文章，请自行查看主题帮助，或者研究主题源代码即可完成。</p>
-<p>修改的时候请注意格式，否则会导致错误而无法正常使用，比如 <code>:</code> 一定要是英文的且后面有内容的话至少要跟一个空格，配置内容跟后面的 <code>#</code> 注释之间至少要有一个空格，具体错误可以启动命令行输入 <code>hexo s --debug</code> 查看。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/828767/static/images/goodhexo_config_site.png" alt="网站配置"></p>
-<p>上图就是一个网站配置示例，配置项 <code>:</code> 后面<strong>如果要添加值至少带了一个空格</strong>，值带中文或者特殊符号建议用英文引号 <code>&#39;&#39;</code> 引起来，一行以 <code>#</code> 开头表示注释内容，配置项后面加空格再 <code>#</code> 则后面部分才是注释，如下面一个配置项：</p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">keywords: &#x27;一网盟,yiwangmeng,GoodHexo,hexo便携版&#x27; #网站SEO关键词，多个词用英文逗号区隔</span><br></pre></td></tr></table></figure>
-
-<h3 id="写一篇自己的文章"><a href="#写一篇自己的文章" class="headerlink" title="写一篇自己的文章"></a>写一篇自己的文章</h3><p>设置好后，就可以开始动手写自己的文章了。</p>
-<h4 id="step1-新建文章"><a href="#step1-新建文章" class="headerlink" title="step1.新建文章"></a>step1.新建文章</h4><p>运行 <code>1.新建文章.bat</code> ，按提示填写文章名称，建议不要使用中文。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/828767/static/images/hexo-new.gif"></p>
-<p>回车确认后会在 <code>hexo</code> 目录下的对应目录新建个 <code>.md</code> 文件，文件名以刚才输入的文章名称命名，注意提示的文件路径和新创建的文件名，如： <code>hexo\source\_posts\helloworld.md</code></p>
-<h4 id="step2-编辑文章MarkDown文件"><a href="#step2-编辑文章MarkDown文件" class="headerlink" title="step2. 编辑文章MarkDown文件"></a>step2. 编辑文章MarkDown文件</h4><p>使用任意文本编辑器打开你刚新建的文章MarkDown源文件，按约定格式修改 <code>Front-matter</code> 中参数值，以及在 <code>Front-matter</code> 之后写你想写的内容即可，推荐编辑器首选用vscode或者Atom，关于编辑器以下文章可以阅读下：</p>
-<ol>
-<li><a href="https://code.visualstudio.com/">vscode-跨平台，绿色免费，基本接近完美的编辑器</a></li>
-<li><a href="#">MarkDown编辑器推荐这篇文章</a></li>
-<li><a href="https://typora.io/">typora - 所见即所得MarkDown编辑器，推荐小白用这个</a></li>
-<li><a href="https://github.com/zhuzhuyule/HexoEditor">基于Moeditor修改集成Hexo功能的编辑器</a></li>
-</ol>
-<p>如果不依赖MarkDown编辑器，那么你需要掌握基本的MarkDown语法，然后就可以用任意文本编辑器「当然，Windows系统自带的记事本还是不推荐用」，按MarkDown语法写文档了。<br>MarkDown语法可以参考 <a href="http://xianbai.me/learn-md/article/about/readme.html">这个 Markdown 教程</a>。</p>
-<p><strong>需要额外注意的是</strong>：Hexo对MarkDown文档头有规范，就是在文档最开始两个 <code>---</code> 中间的那部分，官方称之为 <code>Front-matter</code></p>
-<figure class="highlight plaintext"><table><tr><td class="code"><pre><span class="line">---</span><br><span class="line">title: &#x27;Hexo，从此开始...&#x27;  #文章标题，新建文章的时候填的会自动写到这里</span><br><span class="line">date: 2018-1-12 17:19:27  #文章创建时间</span><br><span class="line">categories: 搞软件 #分类，也可以如下一行那种换行后写分类</span><br><span class="line">tags:  #标签</span><br><span class="line">  - 晒酷软  #这是个标签</span><br><span class="line">  - 做网站  #这是另一个标签</span><br><span class="line">toc: true  #是否显示目录，false不显示，true显示，需要主题支持</span><br><span class="line">top:  #填数字，值越大的文章在首页就越置顶，本包已集成</span><br><span class="line">comments: true  #是否允许评论，需要主题支持</span><br><span class="line">keywords: &#x27;&#x27;    #文章关键词，需要主题支持</span><br><span class="line">description:  &#x27;文章摘要，可以是一大段，</span><br><span class="line">可以换行，用英文引号括起来&#x27;  #不填则根据主题设计截取对应字数</span><br><span class="line">---</span><br><span class="line">上面部分是规定的头部信息，这行开始就是文章内容了...</span><br></pre></td></tr></table></figure>
-
-<p>对于文章来说，以上 <code>Front-matter</code> 参数除了 <code>title:</code> 都不是必须的，请根据自己的需求填写。</p>
-<blockquote>
-<p><strong>注意：每一个参数的 <code>:</code> 或者 <code>-</code> 后，都需要至少留一个空格，如果不填值就无所谓，或者将参数行删除都行，就是不能不留空格直接写，否则会报错。</strong></p>
-</blockquote>
-<p>如果参数值中间涉及特殊字符或者空格等，请使用英文的单引号 <code>&#39;&#39;</code> 将你的内容括起来，就如上面的示例一样。</p>
-<p>更多 <code>Front-matter</code> 参数详见官方文档：<a href="https://hexo.io/zh-cn/docs/front-matter.html">https://hexo.io/zh-cn/docs/front-matter.html</a></p>
-<p>文章参数设置完后，就可以在 <code>---</code> 下一行写自己想写的任何内容了，以下都属于你文章的内容。</p>
-<p><img src="https://cdn.jsdelivr.net/gh/828767/static/images/hexo-edit.gif"></p>
-<h4 id="step3-渲染并发布"><a href="#step3-渲染并发布" class="headerlink" title="step3.渲染并发布"></a>step3.渲染并发布</h4><p>文章写好保存，那就运行 <code>3.渲染并部署.bat</code> ，该批处理会将你的MarkDown源文件套用主题模板渲染成HTML静态页，并把静态页部署到网站空间，最后提示 <code>deploy done：git</code> 就表示已部署完成，要不了两分钟，访问你的网站地址就能看到效果了。</p>
-<p>以上步骤请仔细阅读，再写新文章，重复以上步骤即可。</p>
-<h3 id="文章增-x2F-删-x2F-改"><a href="#文章增-x2F-删-x2F-改" class="headerlink" title="文章增&#x2F;删&#x2F;改"></a>文章增&#x2F;删&#x2F;改</h3><ul>
-<li>增：也就是新建文章，请按前一章第1、2、3步执行</li>
-<li>删：删除一篇文章、页面或图片资源等，只需要将MarkDown等源文件删除，然后执行渲染并发布即可</li>
-<li>改：也就是前一章的第2、3步</li>
-<li>疑难杂症：有时候因为缓存或者一些莫名其妙的未知问题，可以尝试运行 <code>清理旧文件后部署.bat</code></li>
-</ul>
-<blockquote>
-<p>实际上任何增删改都需要重新渲染发布，等线上缓存更新完了才能在外网看到更改后的效果</p>
-</blockquote>
-<p>新手在使用过程中可能会遇到一些问题，请参考我们整理的：<a href="http://yiwangmeng.com/?p=90">GoodHexo使用常见问题及解决办法</a>。</p>
-<h1 id="进阶"><a href="#进阶" class="headerlink" title="进阶"></a>进阶</h1><p>如果你喜欢折腾，Hexo进阶部署使用可以参考<a href="http://yiwangmeng.com/?p=92">Hexo博客Git-VPS部署完整记录</a>。</p>
-<p>使用过程中如需帮助，欢迎关注微信公众号，淘宝店，我的博客或者加入我们的交流群。</p>
-<div style="float:left;border:solid 1px 000;margin:2px;"><img src="https://cdn.jsdelivr.net/gh/828767/static/images/QR-atm.png"  width="200" height="260" ></div>
-
-<div style="float:left;border:solid 1px 000;margin:2px;"><img src="https://cdn.jsdelivr.net/gh/828767/static/images/QR-Taobao.png" width="200" height="260" ></div>
-
-<div style="float:left;border:solid 1px 000;margin:2px;"><img src="https://cdn.jsdelivr.net/gh/828767/static/images/QR-QQ-260489333.png" width="200" height="260" ></div>
-<div style="float:none;clear:both;"></div>
-
-<h1 id="备注"><a href="#备注" class="headerlink" title="备注"></a>备注</h1><blockquote>
-<ul>
-<li>本文所有权归 <a href="http://yiwangmeng.com/">一网盟</a> 所有，<a href="http://yiwangmeng.com/?p=91">原文在此</a>；</li>
-<li>本便携版由 <a href="http://yiwangmeng.com/">一网盟</a> 维护并提供技术支持；</li>
-</ul>
-</blockquote>
-]]></content>
-      <categories>
-        <category>做网站</category>
-      </categories>
-      <tags>
-        <tag>Hexo</tag>
-        <tag>博客建站</tag>
-      </tags>
-  </entry>
-  <entry>
     <title>《Spark local&amp; stand-alone配置》</title>
     <url>/2022/05/22/stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/</url>
     <content><![CDATA[<h1 id="《Spark-local-amp-stand-alone配置》"><a href="#《Spark-local-amp-stand-alone配置》" class="headerlink" title="《Spark local&amp; stand-alone配置》"></a>《Spark local&amp; stand-alone配置》</h1><hr>
@@ -1475,6 +1163,174 @@ start-yarn.sh
 </blockquote>
 </blockquote>
 <p>readme.md<br>**</p>
+</details>
+
+<hr>
+]]></content>
+  </entry>
+  <entry>
+    <title>《使用SpringBoot搭建基础的Kafka流处理平台》</title>
+    <url>/2022/06/05/dxy/</url>
+    <content><![CDATA[<h1 id="《使用SpringBoot搭建基础的Kafka流处理平台》"><a href="#《使用SpringBoot搭建基础的Kafka流处理平台》" class="headerlink" title="《使用SpringBoot搭建基础的Kafka流处理平台》"></a>《使用SpringBoot搭建基础的Kafka流处理平台》</h1><hr>
+<p>title: 《使用SpringBoot搭建基础的Kafka流处理平台》<br>date: 2022-6-8 23:20:41<br>description: 使用SpringBoot搭建基础的Kafka流处理平台</p>
+<details>
+<summary>阅读全文</summary>
+
+<p>1．项目来源及背景<br>Kafka是目前主流的流处理平台，同时作为消息队列家族的一员，其高吞吐性作为很多场景下的主流选择。同时作为流处理平台，在大数据开发中，作为黏合剂串联各个系统。在本项目中，可以发布或订阅数据流处理系统，类似于消息队列数据流存储的平台，并且具备错误容忍当数据产生时就对数据进行处理。<br>2．需求分析<br>（1）通过Github同步kafka_rgzn_Training仓库到本地<br><a href="https://github.com/skykip/kafka_rgzn_Training/tree/main/kafka_rgzn_Training">https://github.com/skykip/kafka_rgzn_Training/tree/main/kafka_rgzn_Training</a><br>（2）调试并启动项目，理解项目中共计11个代码文件的相应内容。<br><img src="/../images/42.png" alt="42"></p>
+<p><img src="/../images/40.png" alt="40"></p>
+<p>代码一：ErrorCode.java ——错误代码<br>文件路径：src——java——common——ErrorCode</p>
+<blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+<p>   package common;<br>   &#x2F;**<br>   *@desc: 错误代码<br>   *&#x2F;<br>   public class ErrorCode {<br>   public final static int SUCCESS &#x3D; 200;<br>   public final static int EXCEPTION &#x3D; 500;<br>   }</p>
+</blockquote>
+</blockquote>
+<p>代码二：MessageEntity.java——消息实体类<br>文件路径：src——java——common——MessageEntity</p>
+<blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+<p>   package common;<br>   import lombok.EqualsAndHashCode;<br>   import lombok.Getter;<br>   import lombok.Setter;<br>   &#x2F;**<br>   *@desc: 消息实体<br>   *&#x2F;<br>   @Getter<br>   @Setter<br>   @EqualsAndHashCode<br>   public class MessageEntity {<br>      &#x2F;&#x2F;消息标题<br>      private String title;<br>      &#x2F;&#x2F;消息内容<br>      private String body;<br>      @Override<br>      public String toString() {<br>         return “MessageEntity{“ +<br>               “title&#x3D;’” + title + ‘&#39;‘ +<br>               “, body&#x3D;’” + body + ‘&#39;‘ +<br>               ‘}’;<br>      }<br>   }</p>
+</blockquote>
+</blockquote>
+<p>代码三：Response.java ——响应实体类<br>文件路径：src——java——common——Response</p>
+<blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+<p>   package common;<br>   import lombok.Getter;<br>   import lombok.Setter;<br>   &#x2F;**<br>      * @ClassName: Response<br>      * @Description: 响应实体<br>   **&#x2F;<br>   @Getter<br>   @Setter<br>   public class Response {<br>      &#x2F;&#x2F;响应码<br>      private int code;<br>      &#x2F;&#x2F;消息<br>      private String message;<br>      public Response(int code, String message){<br>         this.code &#x3D; code;<br>         this.message &#x3D; message;<br>      }<br>      @Override<br>      public String toString() {<br>         return “Response{“ +<br>               “code&#x3D;” + code +<br>               “, message&#x3D;’” + message + ‘&#39;‘ +<br>               ‘}’;<br>      }<br>   }</p>
+</blockquote>
+</blockquote>
+<p>代码四：KafkaConsumerConfig.java——kafka消费者配置<br>文件目录：src——java——config——KafkaConsumerConfig</p>
+<blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+<p>   package config;<br>   import com.bigdata19.kafka.common.MessageEntity;<br>   import common.MessageEntity;<br>   import org.apache.kafka.clients.consumer.ConsumerConfig;<br>   import org.apache.kafka.common.serialization.StringDeserializer;<br>   import org.springframework.beans.factory.annotation.Value;<br>   import org.springframework.context.annotation.Bean;<br>   import org.springframework.context.annotation.Configuration;<br>   import org.springframework.kafka.annotation.EnableKafka;<br>   import org.springframework.kafka.config.ConcurrentKafkaListenerContainerFactory;<br>   import org.springframework.kafka.config.KafkaListenerContainerFactory;<br>   import org.springframework.kafka.core.ConsumerFactory;<br>   import org.springframework.kafka.core.DefaultKafkaConsumerFactory;<br>   import org.springframework.kafka.listener.ConcurrentMessageListenerContainer;<br>   import org.springframework.kafka.support.serializer.JsonDeserializer;<br>   import java.util.HashMap;<br>   import java.util.Map;<br>   &#x2F;**<br>      * @ClassName: KafkaConsumerConfig<br>      * @Description: kafka消费者配置<br>   &#x2F;<br>   @Configuration<br>   @EnableKafka<br>   public class KafkaConsumerConfig {<br>   &#x2F;&#x2F;服务地址<br>   @Value(“${kafka.consumer.servers}”)<br>   private String servers;<br>   &#x2F;&#x2F;是否自动提交<br>   @Value(“${kafka.consumer.enable.auto.commit}”)<br>   private boolean enableAutoCommit;<br>   &#x2F;&#x2F;session时间<br>   @Value(“${kafka.consumer.session.timeout}”)<br>   private String sessionTimeout;<br>   &#x2F;&#x2F;提交的间隔<br>   @Value(“${kafka.consumer.auto.commit.interval}”)<br>   private String autoCommitInterval;<br>   @Value(“${kafka.consumer.group.id}”)<br>   private String groupId;<br>   &#x2F;&#x2F;重置<br>   @Value(“${kafka.consumer.auto.offset.reset}”)<br>   private String autoOffsetReset;<br>   &#x2F;&#x2F;并发数<br>   @Value(“${kafka.consumer.concurrency}”)<br>     private int concurrency;<br>   @Bean<br>   public KafkaListenerContainerFactory&lt;ConcurrentMessageListenerContainer&lt;String, MessageEntity&gt;&gt; kafkaListenerContainerFactory(){<br>   ConcurrentKafkaListenerContainerFactory&lt;String, MessageEntity&gt; factory &#x3D; new ConcurrentKafkaListenerContainerFactory&lt;&gt;();<br>   factory.setConsumerFactory(consumerFactory());<br>     factory.setConcurrency(concurrency);<br>   factory.getContainerProperties().setPollTimeout(1500);<br>   return factory;<br>   }<br>   private ConsumerFactory&lt;String, MessageEntity&gt; consumerFactory(){<br>   return new DefaultKafkaConsumerFactory&lt;&gt;(<br>   consumerConfigs(),<br>   new StringDeserializer(),<br>   new JsonDeserializer&lt;&gt;(MessageEntity.class)<br>     );<br>   }<br>   &#x2F;<br>      * 封装配置<br>      * @return<br>   *&#x2F;<br>   private Map&lt;String, Object&gt; consumerConfigs(){<br>   Map&lt;String, Object&gt; propsMap &#x3D; new HashMap&lt;&gt;();<br>   propsMap.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, servers);<br>   propsMap.put(ConsumerConfig.ENABLE_AUTO_COMMIT_CONFIG, enableAutoCommit);<br>     propsMap.put(ConsumerConfig.AUTO_COMMIT_INTERVAL_MS_CONFIG, autoCommitInterval);<br>   propsMap.put(ConsumerConfig.SESSION_TIMEOUT_MS_CONFIG, sessionTimeout);<br>   propsMap.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);<br>   propsMap.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class);<br>   propsMap.put(ConsumerConfig.GROUP_ID_CONFIG, groupId);<br>   propsMap.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, autoOffsetReset);<br>   return propsMap;<br>   }<br>     }<br>   ? 2022 GitHub, Inc.</p>
+</blockquote>
+</blockquote>
+<p>代码五：KafkaProducerConfig.java——kafka生产者配置<br>src——java——config——KafkaProducerConfig</p>
+<blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+<pre><code>  package config;
+  import com.bigdata19.kafka.common.MessageEntity;
+  import org.apache.kafka.clients.producer.ProducerConfig;
+  import org.apache.kafka.common.serialization.StringSerializer;
+  import org.springframework.beans.factory.annotation.Value;
+  import org.springframework.context.annotation.Bean;
+  import org.springframework.context.annotation.Configuration;
+  import org.springframework.kafka.annotation.EnableKafka;
+  import org.springframework.kafka.core.DefaultKafkaProducerFactory;
+  import org.springframework.kafka.core.KafkaTemplate;
+  import org.springframework.kafka.core.ProducerFactory;
+  import org.springframework.kafka.support.serializer.JsonSerializer;
+  import java.util.HashMap;
+  import java.util.Map;
+  /**
+     * @ClassName: KafkaProducerConfig
+     * @Description: kafka生产者配置
+  **/
+  @Configuration
+  @EnableKafka
+  public class KafkaProducerConfig &#123;
+    //服务地址
+  @Value(&quot;$&#123;kafka.producer.servers&#125;&quot;)
+  private String servers;
+  //重试次数
+  @Value(&quot;$&#123;kafka.producer.retries&#125;&quot;)
+ private int retries;
+  //批处理大小
+  @Value(&quot;$&#123;kafka.producer.batch.size&#125;&quot;)
+  private int batchSize;
+  //将多少时间范围内的数据作为一个批次发送，减少交互次数
+  @Value(&quot;$&#123;kafka.producer.linger&#125;&quot;)
+  private int linger;
+  //缓存空间
+  @Value(&quot;$&#123;kafka.producer.buffer.memory&#125;&quot;)
+     private int bufferMemory;
+  /**
+  * 封装配置
+  * @return
+  */
+     public Map&lt;String, Object&gt; producerConfigs() &#123;
+     Map&lt;String, Object&gt; props = new HashMap&lt;&gt;();
+     props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, servers);
+    props.put(ProducerConfig.RETRIES_CONFIG, retries);
+     props.put(ProducerConfig.BATCH_SIZE_CONFIG, batchSize);
+     props.put(ProducerConfig.LINGER_MS_CONFIG, linger);
+     props.put(ProducerConfig.BUFFER_MEMORY_CONFIG, bufferMemory);
+     props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+     props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class);
+     return props;
+  &#125;
+  public ProducerFactory&lt;String, MessageEntity&gt; producerFactory() &#123;
+     return new DefaultKafkaProducerFactory&lt;&gt;(producerConfigs(),
+           new StringSerializer(),
+           new JsonSerializer&lt;MessageEntity&gt;());
+  &#125;
+  @Bean
+  public KafkaTemplate&lt;String, MessageEntity&gt; kafkaTemplate() &#123;
+     return new KafkaTemplate&lt;&gt;(producerFactory());
+  &#125;
+  &#125;
+</code></pre>
+</blockquote>
+</blockquote>
+<p>代码六：SimpleConsumer.java——消息消费者<br>文件目录：src——java——consumer——SimpleConsumer</p>
+<blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+<p>   package consumer;<br>   import com.bigdata19.kafka.common.MessageEntity;<br>   import com.google.gson.Gson;<br>   import lombok.extern.slf4j.Slf4j;<br>   import org.springframework.kafka.annotation.KafkaListener;<br>   import org.springframework.stereotype.Component;<br>   &#x2F;**<br>    * @ClassName: SimpleConsumer<br>    * @Description: 消息消费者<br>    <strong>&#x2F;<br>   @Slf4j<br>   @Component<br>   public class SimpleConsumer {<br>      private final Gson gson &#x3D; new Gson();<br>      &#x2F;</strong><br>       * 消费者监听消息<br>       * @param message<br>       *&#x2F;<br>      @KafkaListener(topics &#x3D; “${kafka.topic.default}”, containerFactory &#x3D; “kafkaListenerContainerFactory”)<br>      public void receive(MessageEntity message){<br>         log.info(gson.toJson(message));<br>      }<br>   }</p>
+</blockquote>
+</blockquote>
+<p>代码七：ProduceController.java——控制层<br>文件目录：src——java——controller——ProduceController</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<pre><code>package controller;
+</code></pre>
+<p>   import com.bigdata19.kafka.common.ErrorCode;<br>   import com.bigdata19.kafka.common.MessageEntity;<br>   import com.bigdata19.kafka.common.Response;<br>   import com.bigdata19.kafka.producer.SimpleProducer;<br>    import com.google.gson.Gson;<br>   import lombok.extern.slf4j.Slf4j;<br>   import org.springframework.beans.factory.annotation.Autowired;<br>   import org.springframework.beans.factory.annotation.Value;<br>   import org.springframework.web.bind.annotation.RequestBody;<br>   import org.springframework.web.bind.annotation.RequestMapping;<br>   import org.springframework.web.bind.annotation.RequestMethod;<br>   import org.springframework.web.bind.annotation.RestController;<br>   &#x2F;**<br>       * @ClassName: ProduceController<br>    * @Description: 控制层<br>    **&#x2F;<br>   @Slf4j<br>   @RestController<br>   @RequestMapping(“&#x2F;kafka”)<br>   public class ProduceController {<br>      @Autowired<br>      private SimpleProducer simpleProducer;<br>      @Value(“${kafka.topic.default}”)<br>      private String topic;<br>      private Gson gson &#x3D; new Gson();<br>      &#x2F;&#x2F;<a href="http://localhost:8080/kafka/index">http://localhost:8080/kafka/index</a><br>      @RequestMapping(value &#x3D; “&#x2F;index”, method &#x3D; RequestMethod.GET, produces &#x3D; {“application&#x2F;json”})<br>      public Response sendKafka(){<br>         return new Response(ErrorCode.SUCCESS, “OK”);<br>   }<br>         &#x2F;&#x2F;<a href="http://localhost:8080/kafka/send">http://localhost:8080/kafka/send</a><br>         @RequestMapping(value &#x3D; “&#x2F;send”, method &#x3D; RequestMethod.POST, produces &#x3D; {“application&#x2F;json”})<br>         public Response sendKafka(@RequestBody MessageEntity message){<br>         try{<br>            log.info(“kafka消息&#x3D; {}”, gson.toJson(message));<br>            simpleProducer.send(topic, “key”, message);<br>            log.info(“发送kafka消息成功”);<br>            return new Response(ErrorCode.SUCCESS, “发送kafka成功”);<br>         }catch (Exception e){<br>            log.error(“发送kafka失败”,e);<br>            return new Response(ErrorCode.EXCEPTION, “发送kafka失败”);<br>         }<br>      }<br>   }</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>代码八：KafkaDemoApplication.java——项目启动入口类<br>文件目录：src——java——producer——KafkaDemoApplication</p>
+<blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+<pre><code>  package producer;
+</code></pre>
+<p>   import org.springframework.boot.SpringApplication;<br>   import org.springframework.boot.autoconfigure.EnableAutoConfiguration;<br>   import org.springframework.boot.autoconfigure.SpringBootApplication;<br>   @SpringBootApplication<br>      public class KafkaDemoApplication {<br>      public static void main(String[] args) {<br>         SpringApplication.run(KafkaDemoApplication.class, args);<br>      }<br>   }</p>
+</blockquote>
+</blockquote>
+<p>代码九：ProducerCallback.java——消息生产者发送消息的接口<br>文件目录src——java——producer——ProducerCallback</p>
+<blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+<pre><code>  package producer;
+</code></pre>
+<p>   import com.bigdata19.kafka.common.MessageEntity;<br>   import com.google.gson.Gson;<br>   import common.MessageEntity;<br>   import lombok.extern.slf4j.Slf4j;<br>   import org.apache.kafka.clients.producer.RecordMetadata;<br>   import org.springframework.kafka.support.SendResult;<br>   import org.springframework.util.concurrent.ListenableFutureCallback;<br>   &#x2F;**<br>    * @ClassName: ProducerCallback<br>    * @Description: 消息生产者发送消息接口<br>    <strong>&#x2F;<br>   @Slf4j<br>   public class ProducerCallback implements ListenableFutureCallback&lt;SendResult&lt;String, MessageEntity&gt;&gt;{<br>      &#x2F;&#x2F;消息发送时间<br>      private final long startTime;<br>      &#x2F;&#x2F;消息key<br>      private final String key;<br>      &#x2F;&#x2F;消息内容<br>      private final MessageEntity message;<br>      private final Gson gson &#x3D; new Gson();<br>      public ProducerCallback(long startTime, String key, MessageEntity message) {<br>         this.startTime &#x3D; startTime;<br>         this.key &#x3D; key;<br>         this.message &#x3D; message;<br>      }<br>      &#x2F;</strong><br>       * 消息发送失败<br>       * @param ex<br>       <em>&#x2F;<br>      @Override<br>      public void onFailure(Throwable ex) {<br>         ex.printStackTrace();<br>      }<br>      &#x2F;</em>*<br>       * 消息发送成功<br>       * @param result<br>       *&#x2F;<br>      @Override<br>      public void onSuccess(SendResult&lt;String, MessageEntity&gt; result) {<br>         if(result &#x3D;&#x3D; null){<br>            return;<br>         }<br>         long elapsedTime &#x3D; System.currentTimeMillis() - startTime;<br>         System.out.println(“time :” + elapsedTime);<br>         RecordMetadata metadata &#x3D; result.getRecordMetadata();<br>         if(metadata !&#x3D; null){<br>            StringBuilder record &#x3D; new StringBuilder();<br>            record.append(“message(“)<br>                  .append(“key &#x3D; “).append(key).append(“,”)<br>                  .append(“message &#x3D; “).append(gson.toJson(message)).append(“)”)<br>                  .append(“send to partition(“).append(metadata.partition()).append(“)”)<br>                  .append(“with offset(“).append(metadata.offset()).append(“)”)<br>                  .append(“in “).append(elapsedTime).append(“ ms”);<br>            log.info(record.toString());<br>         }<br>      }<br>   }</p>
+</blockquote>
+</blockquote>
+<p>代码十：SimpleProducer.java——消息生产者<br>文件目录src——java——producer——SimpleProducer</p>
+<blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+<pre><code>  package producer;
+</code></pre>
+<p>   import com.bigdata19.kafka.common.MessageEntity;<br>   import common.MessageEntity;<br>   import org.apache.kafka.clients.producer.ProducerRecord;<br>   import org.springframework.beans.factory.annotation.Autowired;<br>   import org.springframework.beans.factory.annotation.Qualifier;<br>   import org.springframework.kafka.core.KafkaTemplate;<br>   import org.springframework.kafka.support.SendResult;<br>   import org.springframework.stereotype.Component;<br>   import org.springframework.util.concurrent.ListenableFuture;<br>   &#x2F;**<br>    * @ClassName: SimpleProducer<br>    * @Description: 消息生产者发送消息<br>    <strong>&#x2F;<br>   @Component<br>   public class SimpleProducer {<br>      @Autowired<br>      @Qualifier(“kafkaTemplate”)<br>      private KafkaTemplate&lt;String, MessageEntity&gt; kafkaTemplate;<br>      public void send(String topic, MessageEntity message){<br>         kafkaTemplate.send(topic, message);<br>      }<br>      &#x2F;</strong><br>       * 发送消息<br>       * @param topic  消息主题<br>       * @param key   消息key<br>       * @param entity  消息体<br>       *&#x2F;<br>      public void send(String topic, String key, MessageEntity entity){<br>         ProducerRecord&lt;String, MessageEntity&gt; record &#x3D; new ProducerRecord&lt;&gt;(<br>               topic,<br>               key,<br>               entity<br>         );<br>            long startTime &#x3D; System.currentTimeMillis();<br>         ListenableFuture&lt;SendResult&lt;String, MessageEntity&gt;&gt; future &#x3D; kafkaTemplate.send(record);<br>         future.addCallback(new ProducerCallback(startTime, key, entity));<br>      }<br>   }</p>
+</blockquote>
+</blockquote>
+<p>运行结果：<br><img src="/../images/41.png" alt="41"></p>
+<p>项目结构<br>调试时，在KafkaDemoApplication文件内启动项目。使用postman等Http接口调试工具对项目进行测试。<br>A.测试时，使用get测试<a href="http://localhost:8080/kafka/index%E6%8E%A5%E5%8F%A3%E6%98%AF%E5%90%A6%E6%AD%A3%E5%B8%B8%E3%80%82%E5%8F%91%E9%80%81%E7%9B%B8%E5%BA%94%E7%9A%84json%E6%95%B0%E6%8D%AE%E3%80%82%E8%AF%B7%E6%88%AA%E5%9B%BEHttp%E6%8E%A5%E5%8F%A3%E8%B0%83%E8%AF%95%E5%B7%A5%E5%85%B7%E4%B8%AD%E5%93%8D%E5%BA%94%E4%BD%93%E7%9A%84%E5%85%B7%E4%BD%93%E5%86%85%E5%AE%B9%E5%92%8C%E9%A1%B9%E7%9B%AE%E8%BF%90%E8%A1%8C%E7%95%8C%E9%9D%A2%E7%9A%84%E6%98%BE%E7%A4%BA%E5%86%85%E5%AE%B9%E3%80%82%E5%A6%82%E4%B8%8B%E5%9B%BE%E6%89%80%E7%A4%BA%EF%BC%9A">http://localhost:8080/kafka/index接口是否正常。发送相应的json数据。请截图Http接口调试工具中响应体的具体内容和项目运行界面的显示内容。如下图所示：</a><br><img src="/../images/43.png" alt="43"></p>
+<p>图2 get响应体的具体内容<br>B.测试时，使用post方式向<a href="http://localhost:8080/kafka/send%E6%8E%A5%E5%8F%A3%E5%8F%91%E9%80%81json%E6%95%B0%E6%8D%AE%E3%80%82">http://localhost:8080/kafka/send接口发送json数据。</a><br>样例数据如下（请在样例数据中改为自己的姓名和学号）：<br>{“title”:”bigdata19-kafka”,”body”:”2022-06-05，杜新宇（194800206）的kafka实训”}<br>请截图Http接口调试工具中响应体的具体内容和项目运行界面的显示内容。如下图所示：<br><img src="/../images/44.jpg" alt="44"><br><img src="/../images/45.jpg" alt="45"></p>
+<p>**</p>
 </details>
 
 <hr>
