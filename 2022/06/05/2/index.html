@@ -9,7 +9,7 @@
     
     <title>
         
-            Hello World |
+            《Kafka命令行操作》 |
         
         Keep Theme
     </title>
@@ -118,7 +118,7 @@
     <div class="article-content-container">
 
         <div class="article-title">
-            <span class="title-hover-animation">Hello World</span>
+            <span class="title-hover-animation">《Kafka命令行操作》</span>
         </div>
 
         
@@ -137,8 +137,8 @@
                         <div class="article-meta-info">
     <span class="article-date article-meta-item">
         <i class="fas fa-edit"></i>&nbsp;
-        <span class="pc">2022-06-10 12:15:51</span>
-        <span class="mobile">2022-06-10 12:15</span>
+        <span class="pc">2022-06-05 20:20:41</span>
+        <span class="mobile">2022-06-05 20:20</span>
     </span>
     
     
@@ -155,19 +155,44 @@
         
 
         <div class="article-content markdown-body">
-            <p>Welcome to <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/" >Hexo<i class="fas fa-external-link-alt"></i></a>! This is your very first post. Check <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/" >documentation<i class="fas fa-external-link-alt"></i></a> for more info. If you get any problems when using Hexo, you can find the answer in <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/troubleshooting.html" >troubleshooting<i class="fas fa-external-link-alt"></i></a> or you can ask me on <a class="link"   target="_blank" rel="noopener" href="https://github.com/hexojs/hexo/issues" >GitHub<i class="fas fa-external-link-alt"></i></a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo new <span class="string">&quot;My New Post&quot;</span></span><br></pre></td></tr></table></figure>
+            <h1 id="《Kafka命令行操作》"><a href="#《Kafka命令行操作》" class="headerlink" title="《Kafka命令行操作》"></a>《Kafka命令行操作》</h1><hr>
+<p>title: 《Kafka命令行操作》<br>date: 2022-6-5 20:20:41<br>description: Kafka命令行操作</p>
+<details>
+<summary>阅读全文</summary>
 
-<p>More info: <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/writing.html" >Writing<i class="fas fa-external-link-alt"></i></a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo server</span><br></pre></td></tr></table></figure>
+<p>**<summary></p>
+<p>1、cd &#x2F;export&#x2F;server&#x2F;kafka&#x2F;bin目录下的命令行工具</p>
+<blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+<pre><code>kafka-configs.sh	用于配置管理
+kafka-console-consumer.sh	用于消费消息
+kafka-console-producer.sh	用于生产消息
+kafka-consumer-perf-test.sh	用于测试消费性能
+kafka-topics.sh	用于管理主题
+kafka-dump-log.sh	用于查看日志内容
+kafka-server-stop.sh	用于关闭kafka服务
+kafka-preferred-replica-election.sh	用于优先副本的选举
+kafka-server-start.sh	用于启动kafka服务
+kafka-producer-perf-test.sh	用于测试生产性能
+kafka-reassign-partitions.sh	用于分区重分配
+</code></pre>
+</blockquote>
+</blockquote>
+<p>2、查看当前可用topic（应该什么也没有）</p>
+<p><img src="/../images/1.png" alt="1"></p>
+<p>3、创建topic，检查是否创建成功<br><img src="/../images/2.png" alt="2"></p>
+<p>4、手动指定副本的存储位置，进入cd &#x2F;export&#x2F;data&#x2F;kafka-logs路径下查看分区的分布<br><img src="/../images/3.png" alt="3"><br><img src="/../images/4.png" alt="4"><br><img src="/../images/5.png" alt="5"><br><img src="/../images/6.png" alt="6"></p>
+<p>5、进入到zookeeper client，查看目录、controller、controller_epoch<br><img src="/../images/7.png" alt="7"></p>
+<p>6、删除topic，检查是否删除成功<br><img src="/../images/8.png" alt="8"><br><img src="/../images/9.png" alt="9"><br><img src="/../images/10.png" alt="10"><br><img src="/../images/11.png" alt="11"></p>
+<p>7、查看topic详情<br><img src="/../images/12.png" alt="12"></p>
+<p>8、增加分区数，查看topic详情<br><img src="/../images/13.png" alt="13"></p>
+<p>9、修改参数<br><img src="/../images/14.png" alt="14"></p>
+<p>10、生产者写入数据、消费者拉取数据<br><img src="/../images/15.png" alt="15"><br><img src="/../images/16.png" alt="16"><br>**</p>
+</details>
 
-<p>More info: <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/server.html" >Server<i class="fas fa-external-link-alt"></i></a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo generate</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/generating.html" >Generating<i class="fas fa-external-link-alt"></i></a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$ hexo deploy</span><br></pre></td></tr></table></figure>
-
-<p>More info: <a class="link"   target="_blank" rel="noopener" href="https://hexo.io/docs/one-command-deployment.html" >Deployment<i class="fas fa-external-link-alt"></i></a></p>
+<hr>
 
         </div>
 
@@ -178,14 +203,29 @@
         
             <div class="article-nav">
                 
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2022/06/10/hello-world/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">Hello World</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
                 
                     <div class="article-next">
                         <a class="next"
                            rel="next"
-                           href="/2022/06/05/2/"
+                           href="/2022/06/05/1/"
                         >
                             <span class="title flex-center">
-                                <span class="post-nav-title-item">《Kafka命令行操作》</span>
+                                <span class="post-nav-title-item">《Kafka环境配置》</span>
                                 <span class="post-nav-item">下一篇</span>
                             </span>
                             <span class="right arrow-icon flex-center">

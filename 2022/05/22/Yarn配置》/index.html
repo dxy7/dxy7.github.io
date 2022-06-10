@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html lang="zh_cn">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <meta name="keywords" content="Hexo Theme Keep">
+    <meta name="description" content="Hexo Theme Keep">
+    <meta name="author" content="Keep Team">
+    
+    <title>
+        
+            《Spark HA &amp; Yarn配置》 |
+        
+        Keep Theme
+    </title>
+    
+<link rel="stylesheet" href="/css/style.css">
+
+    <link rel="shortcut icon" href="/images/logo.svg">
+    
+<link rel="stylesheet" href="/css/font-awesome.min.css">
+
+    <script id="hexo-configurations">
+    let KEEP = window.KEEP || {};
+    KEEP.hexo_config = {"hostname":"example.com","root":"/","language":"zh_cn"};
+    KEEP.theme_config = {"toc":{"enable":false,"number":false,"expand_all":false,"init_open":false},"style":{"primary_color":"#0066CC","avatar":"/images/avatar.svg","favicon":"/images/logo.svg","article_img_align":"left","left_side_width":"260px","content_max_width":"920px","hover":{"shadow":false,"scale":false},"first_screen":{"enable":false,"background_img":"/images/bg.svg","description":"Keep writing and Keep loving."},"scroll":{"progress_bar":{"enable":false},"percent":{"enable":false}}},"local_search":{"enable":false,"preload":false},"code_copy":{"enable":false,"style":"default"},"pjax":{"enable":false},"lazyload":{"enable":false},"version":"3.4.5"};
+    KEEP.language_ago = {"second":"%s seconds ago","minute":"%s minutes ago","hour":"%s hours ago","day":"%s days ago","week":"%s weeks ago","month":"%s months ago","year":"%s years ago"};
+  </script>
+<meta name="generator" content="Hexo 6.2.0"></head>
+
+
+<body>
+<div class="progress-bar-container">
+    
+
+    
+</div>
+
+
+<main class="page-container">
+
+    
+
+    <div class="page-main-content">
+
+        <div class="page-main-content-top">
+            <header class="header-wrapper">
+
+    <div class="header-content">
+        <div class="left">
+            
+            <a class="logo-title" href="/">
+                Keep Theme
+            </a>
+        </div>
+
+        <div class="right">
+            <div class="pc">
+                <ul class="menu-list">
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/"
+                            >
+                                首页
+                            </a>
+                        </li>
+                    
+                        <li class="menu-item">
+                            <a class=""
+                               href="/archives"
+                            >
+                                归档
+                            </a>
+                        </li>
+                    
+                    
+                </ul>
+            </div>
+            <div class="mobile">
+                
+                <div class="icon-item menu-bar">
+                    <div class="menu-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="header-drawer">
+        <ul class="drawer-menu-list">
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/">首页</a>
+                </li>
+            
+                <li class="drawer-menu-item flex-center">
+                    <a class=""
+                       href="/archives">归档</a>
+                </li>
+            
+        </ul>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+        </div>
+
+        <div class="page-main-content-middle">
+
+            <div class="main-content">
+
+                
+                    <div class="fade-in-down-animation">
+    <div class="article-content-container">
+
+        <div class="article-title">
+            <span class="title-hover-animation">《Spark HA &amp; Yarn配置》</span>
+        </div>
+
+        
+            <div class="article-header">
+                <div class="avatar">
+                    <img src="/images/avatar.svg">
+                </div>
+                <div class="info">
+                    <div class="author">
+                        <span class="name">Keep Team</span>
+                        
+                            <span class="author-label">Lv2</span>
+                        
+                    </div>
+                    <div class="meta-info">
+                        <div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fas fa-edit"></i>&nbsp;
+        <span class="pc">2022-05-22 16:20:41</span>
+        <span class="mobile">2022-05-22 16:20</span>
+    </span>
+    
+    
+
+    
+    
+    
+    
+</div>
+
+                    </div>
+                </div>
+            </div>
+        
+
+        <div class="article-content markdown-body">
+            <h1 id="《Spark-HA-amp-Yarn配置》"><a href="#《Spark-HA-amp-Yarn配置》" class="headerlink" title="《Spark HA &amp; Yarn配置》"></a>《Spark HA &amp; Yarn配置》</h1><hr>
+<p>title: 《Spark HA &amp; Yarn配置》<br>date: 2022-05-22 16:20:41<br>description: Spark (HA) Spark (Yarn)</p>
+<details>
+<summary>阅读全文</summary>
+
+<p>**<summary>Spark-Standalone-HA模式<br>Spark Standalone集群是node1-node3架构的集群模式,和大部分的node1-node3结构集群一样,存在<br>着node1 单点故障(SPOF)的问题。简单理解为，spark-Standalone 模式下为 node1 节点控制其他节<br>点，当 node1 节点出现故障时，集群就不可用了。 spark-Standalone-HA 模式下<br>node1 节点不固定，当一个宕机时，立即换另一台为 node1 保障不出现故障。<br>此处因为先前配置时的 zookeeper 版本和 spark 版本不太兼容，导致此模式有故障，需要重新下<br>载配置新的版本的 zookeeper<br>配置之前需要删除三台主机的 旧版 zookeeper 以及 对应的软连接<br>在 node1 节点上重新进行前面配置的 zookeeper 操作</p>
+<blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+<p>   1.上传apache-zookeeper-3.7.0-bin.tar.gz 到&#x2F;export&#x2F;server&#x2F;目录下 并解压文件 2.在 &#x2F;export&#x2F;server 目录下创建软连接 3.进入 &#x2F;export&#x2F;server&#x2F;zookeeper&#x2F;conf&#x2F; 将 zoo_sample.cfg 文件复制为新文件 zoo.cfg 4.接上步给 zoo.cfg 添加内容 5.进入 &#x2F;export&#x2F;server&#x2F;zookeeper&#x2F;zkdatas 目录在此目录下创建 myid 文件，将 1 写入进 去6.将 node1 节点中 &#x2F;export&#x2F;server&#x2F;zookeeper-3.7.0 路径下内容推送给node2 和 node3 7.推送成功后，分别在 node2 和 node3 上创建软连接 8.接上步推送完成后将 node2 和 node3 的 &#x2F;export&#x2F;server&#x2F;zookeeper&#x2F;zkdatas&#x2F;文件夹 下的 myid 中的内容分别改为 2 和 3 配置环境变量： 因先前配置 zookeeper 时候创建过软连接且以 ’zookeeper‘ 为路径，所以不用配置环境变量，此 处也是创建软连接的方便之处</p>
+</blockquote>
+</blockquote>
+<p>进入 &#x2F;export&#x2F;server&#x2F;spark&#x2F;conf 文件夹 修改 spark-env.sh 文件内容</p>
+<blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+<p>   cd &#x2F;export&#x2F;server&#x2F;spark&#x2F;conf<br>    vim spark-env.sh</p>
+</blockquote>
+</blockquote>
+<p>为 83 行内容加上注释，此部分原为指定 某台主机 做 node1 ，加上注释后即为 任何主机都<br>可以做 node1</p>
+<blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+<p>   结果显示：<br>     ……<br>      82 # 告知Spark的node1运行在哪个机器上 83 # export SPARK_node1_HOST&#x3D;node1<br>     ………</p>
+</blockquote>
+</blockquote>
+<p>文末添加内容</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>SPARK_DAEMON_JAVA_OPTS&#x3D;”-Dspark.deploy.recoveryMode&#x3D;ZOOKEEPER -<br>       Dspark.deploy.zookeeper.url&#x3D;node1:2181,node2:2181,node3:2181 - Dspark.deploy.zookeeper.dir&#x3D;&#x2F;spark-ha”<br>        #spark.deploy.recoveryMode<br>        指定HA模式 基于Zookeeper实现<br>        #指定Zookeeper的连接地址<br>        #指定在Zookeeper中注册临时节点的路径</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>分发 spark-env.sh 到 node2 和 node3 上</p>
+<blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+<pre><code>scp spark-env.sh node2:/export/server/spark/conf/ 
+scp spark-env.sh node3:/export/server/spark/conf/
+</code></pre>
+</blockquote>
+</blockquote>
+<p>启动之前确保 Zookeeper 和 HDFS 均已经启动<br>启动集群:</p>
+<blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+<p>   #在 node1 上 启动一个node1 和全部worker &#x2F;export&#x2F;server&#x2F;spark&#x2F;sbin&#x2F;start-all.sh # 注意, 下面命令在 node2 上执行 启动 node2 上的 node1 做备用 node1 &#x2F;export&#x2F;server&#x2F;spark&#x2F;sbin&#x2F;start-node1.sh<br>    结果显示：<br>    (base) [root@node1 ~]# jps<br>    37328 DataNode<br>    41589 node1<br>    35798 QuorumPeerMain<br>    38521 ResourceManager<br>    46281 Jps<br>    38907 NodeManager<br>    41821 Worker<br>    36958 NameNode (base)<br>    [root@node2 sbin]# jps<br>    36631 DataNode<br>    48135 node1<br>    35385 QuorumPeerMain<br>    37961 NodeManager<br>    40970 Worker<br>    48282 Jps<br>    37276 SecondaryNameNode</p>
+</blockquote>
+</blockquote>
+<p>访问 WebUI 界面</p>
+<blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+<pre><code>http://node1:8081/
+</code></pre>
+<p>   <a class="link"   target="_blank" rel="noopener" href="http://node2:8082/" >http://node2:8082/<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+</blockquote>
+<p>此时 kill 掉 node1 上的 node1 假设 node1 主机宕机掉</p>
+<blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+<p>   #node1主机 node1 的进程号 kill -9 41589 结果显示： (base) [root@node1 ~]# jps 37328 DataNode 90336 Jps 35798 QuorumPeerMain 38521 ResourceManager 38907 NodeManager 41821 Worker 36958 NameNode</p>
+</blockquote>
+</blockquote>
+<p>访问 node2 的 WebUI</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p><a class="link"   target="_blank" rel="noopener" href="http://node2:8082/" >http://node2:8082/<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>进行主备切换的测试<br>提交一个 spark 任务到当前 活跃的 node1上 :</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>&#x2F;export&#x2F;server&#x2F;spark&#x2F;bin&#x2F;spark-submit –node1 spark:&#x2F;&#x2F;node1:7077 &#x2F;export&#x2F;server&#x2F;spark&#x2F;examples&#x2F;src&#x2F;main&#x2F;python&#x2F;pi.py 1000</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>复制标签 kill 掉 node1 的 进程号<br>再次访问 node1 的 WebUI</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p><a class="link"   target="_blank" rel="noopener" href="http://node1:8081/" >http://node1:8081/<i class="fas fa-external-link-alt"></i></a><br>      网页访问不了！</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>再次访问 node2 的 WebUI</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p><a class="link"   target="_blank" rel="noopener" href="http://node2:8082/" >http://node2:8082/<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>可以看到当前活跃的 node1 提示信息</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>(base) [root@node1 ~]# &#x2F;export&#x2F;server&#x2F;spark&#x2F;bin&#x2F;spark-submit –node1 spark:&#x2F;&#x2F;node1:7077 &#x2F;export&#x2F;server&#x2F;spark&#x2F;examples&#x2F;src&#x2F;main&#x2F;python&#x2F;pi.py 1000 22&#x2F;03&#x2F;29 16:11:15 WARN NativeCodeLoader: Unable to load native-hadoop library for your platform… using builtin-java classes where applicable 22&#x2F;03&#x2F;29 16:12:16 WARN StandaloneAppClient$ClientEndpoint: Connection to node1:7077 failed; waiting for node1 to reconnect… 22&#x2F;03&#x2F;29 16:12:16 WARN StandaloneSchedulerBackend: Disconnected from Spark cluster! Waiting for reconnection… 22&#x2F;03&#x2F;29 16:12:16 WARN StandaloneAppClient$ClientEndpoint: Connection to node1:7077 failed; waiting for node1 to reconnect… Pi is roughly 3.140960 (base) [root@node1 ~]#</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>Spark On YARN模式</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>在已有YARN集群的前提下在单独准备Spark StandAlone集群,对资源的利用就不高.Spark On YARN, 无</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>需部署Spark集群, 只要找一台服务器, 充当Spark的客户端<br>保证 HADOOP_CONF_和 DIR_YARN_CONF_DIR 已经配置在 spark-env.sh 和环境变量中 （注: 前面配置spark-Standlone 时已经配置过此项了）</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>spark-env.sh 文件部分显示： …. 77 ## HADOOP软件配置文件目录，读取HDFS上文件和运行YARN集群 78 HADOOP_CONF_DIR&#x3D;&#x2F;export&#x2F;server&#x2F;hadoop&#x2F;etc&#x2F;hadoop 79 YARN_CONF_DIR&#x3D;&#x2F;export&#x2F;server&#x2F;hadoop&#x2F;etc&#x2F;hadoop ….</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>链接到 YARN 中（注: 交互式环境 pyspark 和 spark-shell 无法运行 cluster模式）<br>bin&#x2F;pyspark –node1 yarn –deploy-mode client|cluster # –deploy-mode 选项是指定部署模式, 默认是 客户端模式 # client就是客户端模式 # cluster就是集群模式 # –deploy-mode 仅可以用在YARN模式下<br> bin&#x2F;spark-shell –node1 yarn –deploy-mode client|cluster<br>bin&#x2F;spark-submit –node1 yarn –deploy-mode client|cluster &#x2F;xxx&#x2F;xxx&#x2F;xxx.py 参数</p>
+<blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+<p>  spark-submit 和 spark-shell 和 pyspark的相关参数</p>
+</blockquote>
+</blockquote>
+<ul>
+<li>bin&#x2F;pyspark: pyspark解释器spark环境 - bin&#x2F;spark-shell: scala解释器spark环境 - bin&#x2F;spark-submit: 提交jar包或Python文件执行的工具 - bin&#x2F;spark-sql: sparksql客户端工具<br>  这4个客户端工具的参数基本通用.以spark-submit 为例: bin&#x2F;spark-submit –node1 spark:&#x2F;&#x2F;node1:7077 xxx.py&#96;<blockquote>
+<blockquote>
+<blockquote>
+</blockquote>
+<p>  Usage: spark-submit [options] &lt;app jar | python file | R file&gt; [app arguments]<br>   Usage: spark-submit –kill [submission ID] –node1 [spark:&#x2F;&#x2F;…]<br>   Usage: spark-submit –status [submission ID] –node1 [spark:&#x2F;&#x2F;…]<br>   Usage: spark-submit run-example [options] example-class [example args] </p>
+<blockquote>
+</blockquote>
+<p>   Options: –node1 node1_URL spark:&#x2F;&#x2F;host:port, mesos:&#x2F;&#x2F;host:port, yarn, k8s:&#x2F;&#x2F;<a href="https://host:port">https://host:port</a>, or </p>
+<blockquote>
+</blockquote>
+<p>   local (Default: local[*]). –deploy-mode DEPLOY_MODE 部署模式 client 或者 cluster 默认是client –class CLASS_NAME 运行java或者scala class(for Java &#x2F; Scala apps). –name NAME 程序的名字 –jars JARS Comma-separated list of jars to include on the </p>
+<blockquote>
+</blockquote>
+<p>   driver and executor classpaths. –packages Comma-separated list of maven coordinates of </p>
+<blockquote>
+</blockquote>
+<p>   jars to include on the driver and executor classpaths. Will </p>
+<blockquote>
+</blockquote>
+<p>   search the local maven repo, then maven central and any </p>
+<blockquote>
+</blockquote>
+<p>   additional remote repositories given by –repositories. The </p>
+<blockquote>
+</blockquote>
+<p>   format for the coordinates should be </p>
+<blockquote>
+</blockquote>
+<p>   groupId:artifactId:version.<br>   –exclude-packages Comma-separated list of groupId:artifactId, to exclude while resolving the dependencies provided in<br>– packages to avoid dependency conflicts. –repositories Comma-separated list of additional remote repositories to search for the maven coordinates given with<br> – packages.<br> –py-files PY_FILES 指定Python程序依赖的其它python文件<br> –files FILES Comma-separated list of files to be placed in the working directory of each executor. File paths of these files in executors can be accessed via SparkFiles.get(fileName).<br>  –archives ARCHIVES Comma-separated list of archives to be extracted into the working directory of each executor.<br> –conf,<br> -c PROP&#x3D;VALUE 手动指定配置<br> –properties-file FILE Path to a file from which to load extra properties. If not specified, this will look for conf&#x2F;spark- defaults.conf. –driver-memory MEM Driver的可用内存(Default: 1024M). –driver-java-options Driver的一些Java选项 –driver-library-path Extra library path entries to pass to the driver. –driver-class-path Extra class path entries to pass to the driver. Note that jars added with –jars are automatically included in the classpath.<br> –executor-memory MEM Executor的内存 (Default: 1G).<br> –proxy-user NAME User to impersonate when submitting the application. This argument does not work with<br> –principal &#x2F;<br> –keytab.<br> –help,<br> -h 显示帮助文件<br>  –verbose,<br>  -v Print additional debug output. –version, 打印版本 Cluster deploy mode only(集群模式专属):<br>   –driver-cores NUM Driver可用的的CPU核数(Default: 1). Spark standalone or Mesos with cluster deploy mode only:<br>   –supervise 如果给定, 可以尝试重启Driver Spark standalone, Mesos or K8s with cluster deploy mode only:<br>   –kill SUBMISSION_ID 指定程序ID kill –status SUBMISSION_ID 指定程序ID 查看运行状态 Spark standalone, Mesos and Kubernetes only:<br>   –total-executor-cores NUM 整个任务可以给Executor多少个CPU核心用 Spark standalone, YARN and Kubernetes only:<br>    –executor-cores NUM 单个Executor能使用多少CPU核心 Spark on YARN and Kubernetes only(YARN模式下):<br>    –num-executors NUM Executor应该开启几个<br>    –principal PRINCIPAL Principal to be used to login to KDC.<br>    –keytab KEYTAB The full path to the file that contains the keytab for the principal specified above. Spark on YARN only:<br>    –queue QUEUE_NAME 指定运行的YARN队列(Default: “default”)</p>
+</blockquote>
+</blockquote>
+</li>
+</ul>
+<p>启动 YARN 的历史服务器</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>cd &#x2F;export&#x2F;server&#x2F;hadoop-3.3.0&#x2F;sbin .&#x2F;mr-jobhistory-daemon.sh start historyserver</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>访问WebUI界面</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p><a class="link"   target="_blank" rel="noopener" href="http://node1:19888/" >http://node1:19888/<i class="fas fa-external-link-alt"></i></a></p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>client 模式测试</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>SPARK_HOME&#x3D;&#x2F;export&#x2F;server&#x2F;spark ${SPARK_HOME}&#x2F;bin&#x2F;spark-submit –node1 yarn –deploy-mode client – driver-memory 512m –executor-memory 512m –num-executors 1 –total- executor-cores 2 ${SPARK_HOME}&#x2F;examples&#x2F;src&#x2F;main&#x2F;python&#x2F;pi.py</p>
+</blockquote>
+</blockquote>
+</blockquote>
+<p>cluster 模式测试</p>
+<blockquote>
+<blockquote>
+<blockquote>
+<p>SPARK_HOME&#x3D;&#x2F;export&#x2F;server&#x2F;spark ${SPARK_HOME}&#x2F;bin&#x2F;spark-submit –node1 yarn –deploy-mode cluster –driver- memory 512m –executor-memory 512m –num-executors 1 –total-executor-cores 2 –conf “spark.pyspark.driver.python&#x3D;&#x2F;root&#x2F;anaconda3&#x2F;bin&#x2F;python3” –conf “spark.pyspark.python&#x3D;&#x2F;root&#x2F;anaconda3&#x2F;bin&#x2F;python3” ${SPARK_HOME}&#x2F;examples&#x2F;src&#x2F;main&#x2F;python&#x2F;pi.py 3**</p>
+</blockquote>
+</blockquote>
+</blockquote>
+</details>
+
+<hr>
+
+        </div>
+
+        
+
+        
+
+        
+            <div class="article-nav">
+                
+                    <div class="article-prev">
+                        <a class="prev"
+                           rel="prev"
+                           href="/2022/05/22/stand-alone%E9%85%8D%E7%BD%AE%E3%80%8B/"
+                        >
+                            <span class="left arrow-icon flex-center">
+                              <i class="fas fa-chevron-left"></i>
+                            </span>
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">《Spark local&amp; stand-alone配置》</span>
+                                <span class="post-nav-item">上一篇</span>
+                            </span>
+                        </a>
+                    </div>
+                
+                
+                    <div class="article-next">
+                        <a class="next"
+                           rel="next"
+                           href="/2022/05/22/%E3%80%8Aspark%E5%9F%BA%E7%A1%80%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE%E3%80%8B/"
+                        >
+                            <span class="title flex-center">
+                                <span class="post-nav-title-item">《spark基础环境配置》</span>
+                                <span class="post-nav-item">下一篇</span>
+                            </span>
+                            <span class="right arrow-icon flex-center">
+                              <i class="fas fa-chevron-right"></i>
+                            </span>
+                        </a>
+                    </div>
+                
+            </div>
+        
+
+        
+    </div>
+</div>
+
+
+                
+            </div>
+
+        </div>
+
+        <div class="page-main-content-bottom">
+            <footer class="footer">
+    <div class="info-container">
+        <div class="copyright-info info-item">
+            &copy;
+            
+              <span>2020</span>
+              -
+            
+            2022&nbsp;<i class="fas fa-heart icon-animate"></i>&nbsp;<a href="/">Keep Team</a>
+        </div>
+        
+        <div class="theme-info info-item">
+            由 <a target="_blank" href="https://hexo.io">Hexo</a> 驱动&nbsp;|&nbsp;主题&nbsp;<a class="theme-version" target="_blank" href="https://github.com/XPoet/hexo-theme-keep">Keep v3.4.5</a>
+        </div>
+        
+        
+    </div>
+</footer>
+
+        </div>
+    </div>
+
+    
+        <div class="post-tools">
+            <div class="post-tools-container">
+    <ul class="tools-list">
+        <!-- TOC aside toggle -->
+        
+
+        <!-- go comment -->
+        
+    </ul>
+</div>
+
+        </div>
+    
+
+    <div class="right-bottom-side-tools">
+        <div class="side-tools-container">
+    <ul class="side-tools-list">
+        <li class="tools-item tool-font-adjust-plus flex-center">
+            <i class="fas fa-search-plus"></i>
+        </li>
+
+        <li class="tools-item tool-font-adjust-minus flex-center">
+            <i class="fas fa-search-minus"></i>
+        </li>
+
+        <li class="tools-item tool-expand-width flex-center">
+            <i class="fas fa-arrows-alt-h"></i>
+        </li>
+
+        <li class="tools-item tool-dark-light-toggle flex-center">
+            <i class="fas fa-moon"></i>
+        </li>
+
+        <!-- rss -->
+        
+
+        
+            <li class="tools-item tool-scroll-to-top flex-center">
+                <i class="fas fa-arrow-up"></i>
+            </li>
+        
+
+        <li class="tools-item tool-scroll-to-bottom flex-center">
+            <i class="fas fa-arrow-down"></i>
+        </li>
+    </ul>
+
+    <ul class="exposed-tools-list">
+        <li class="tools-item tool-toggle-show flex-center">
+            <i class="fas fa-cog fa-spin"></i>
+        </li>
+        
+    </ul>
+</div>
+
+    </div>
+
+    
+
+    <div class="image-viewer-container">
+    <img src="">
+</div>
+
+
+    
+
+</main>
+
+
+
+
+<script src="/js/utils.js"></script>
+
+<script src="/js/main.js"></script>
+
+<script src="/js/header-shrink.js"></script>
+
+<script src="/js/back2top.js"></script>
+
+<script src="/js/dark-light-toggle.js"></script>
+
+
+
+
+
+
+
+
+<div class="post-scripts">
+    
+</div>
+
+
+
+</body>
+</html>
